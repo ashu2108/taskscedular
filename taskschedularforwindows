@@ -1,0 +1,12 @@
+$taskName = "Cloudwatch"
+$taskAction = New-ScheduledTaskAction `
+    -Execute 'powershell.exe' `
+    -Argument '-File C:\Users\Ashutosh.teknur\Desktop\cw.ps1'
+$time = (get-date).AddMinutes(5).ToString("HH:mm")
+$taskTrigger = New-ScheduledTaskTrigger -Daily -At $time
+$description = "Execute cloud watch after 5 min"
+Register-ScheduledTask `
+    -TaskName $taskName `
+    -Action $taskAction `
+    -Trigger $taskTrigger `
+    -Description $description
